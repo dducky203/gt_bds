@@ -436,7 +436,7 @@ function enhanceArticleCards() {
 //                            'Email';
 
 //             if (platform === 'Email') {
-//                 window.location.href = 'mailto:muabanbatdongsan@gmail.com?subject=Liên hệ từ website&body=Xin chào, tôi muốn tìm hiểu thêm về dịch vụ của các bạn.';
+//                 window.location.href = 'mailto:info.muabanbatdongsan@gmail.com?subject=Liên hệ từ website&body=Xin chào, tôi muốn tìm hiểu thêm về dịch vụ của các bạn.';
 //             } else {
 //                 showNotification(`Đang chuyển đến ${platform}...`, 'info');
 //                 // Add actual social media links here
