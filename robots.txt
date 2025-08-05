@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://dducky203.github.io/gt_bds/sitemap.xml
+Sitemap: https://muabanbatdongsan.io.vn/sitemap.xml
 
 # Disallow admin pages (if any)
 Disallow: /admin/
