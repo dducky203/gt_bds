@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://dducky203.github.io/gt_bds/sitemap.xml
+
+# Disallow admin pages (if any)
+Disallow: /admin/
+Disallow: /private/
+
+# Allow important pages
+Allow: /article*.html
+Allow: /index.html
+Allow: /styles.css
+Allow: /script.js
+Allow: /img/
+
+# Crawl-delay
+Crawl-delay: 1

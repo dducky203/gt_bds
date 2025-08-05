@@ -14,6 +14,18 @@ body {
   line-height: 1.6;
   color: #333;
   background-color: #f8f9fa;
+  font-display: swap;
+}
+
+/* Preload critical resources */
+img {
+  height: auto;
+  max-width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+img[data-priority="high"] {
+  opacity: 1;
 }
 
 .container {

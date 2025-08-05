@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm tra DNS TXT Record</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background: #e2f3ff;
+            border: 1px solid #b3d9ff;
+            color: #0c5460;
+            margin-bottom: 20px;
+        }
+        .steps {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .steps h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .steps ol {
+            padding-left: 20px;
+        }
+        .steps li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        code {
+            background: #f1f2f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Kiểm tra DNS TXT Record</h1>
+        
+        <div class="info">
+            <strong>📋 Thông tin xác minh:</strong><br>
+            Tên miền: <code>muabanbatdongsan.io.vn</code><br>
+            Google verification: <code>google-site-verification=tV_NhSRjjJb1u88vEp8PWXhbBJAs6joWb_XZ7c3I-E4</code>
+        </div>
+
+        <div class="input-group">
+            <label for="domain">Tên miền cần kiểm tra:</label>
+            <input type="text" id="domain" value="muabanbatdongsan.io.vn" placeholder="Nhập tên miền...">
+        </div>
+
+        <button onclick="checkDNS()">🔍 Kiểm tra TXT Record</button>
+
+        <div id="result"></div>
+
+        <div class="steps">
+            <h3>📝 Hướng dẫn thêm bản ghi TXT:</h3>
+            <ol>
+                <li><strong>Đăng nhập</strong> vào trang quản lý DNS của nhà cung cấp tên miền</li>
+                <li><strong>Tìm phần DNS Management</strong> hoặc DNS Zone Editor</li>
+                <li><strong>Thêm bản ghi TXT mới:</strong>
+                    <ul>
+                        <li>Type/Loại: <code>TXT</code></li>
+                        <li>Name/Host: <code>@</code> hoặc để trống</li>
+                        <li>Value/Giá trị: <code>google-site-verification=tV_NhSRjjJb1u88vEp8PWXhbBJAs6joWb_XZ7c3I-E4</code></li>
+                        <li>TTL: <code>3600</code> (hoặc mặc định)</li>
+                    </ul>
+                </li>
+                <li><strong>Lưu thay đổi</strong> và chờ 15-60 phút</li>
+                <li><strong>Kiểm tra</strong> bằng tool này</li>
+                <li><strong>Quay lại Google Search Console</strong> và nhấn "Verify"</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function checkDNS() {
+            const domain = document.getElementById('domain').value.trim();
+            const resultDiv = document.getElementById('result');
+            
+            if (!domain) {
+                resultDiv.innerHTML = '<div class="result error">❌ Vui lòng nhập tên miền</div>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<div class="result info">🔄 Đang kiểm tra DNS record...</div>';
+
+            // Sử dụng DNS over HTTPS để kiểm tra
+            fetch(`https://dns.google/resolve?name=${domain}&type=TXT`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.Answer && data.Answer.length > 0) {
+                        let found = false;
+                        let records = [];
+                        
+                        data.Answer.forEach(record => {
+                            if (record.type === 16) { // TXT record
+                                records.push(record.data);
+                                if (record.data.includes('google-site-verification=tV_NhSRjjJb1u88vEp8PWXhbBJAs6joWb_XZ7c3I-E4')) {
+                                    found = true;
+                                }
+                            }
+                        });
+
+                        if (found) {
+                            resultDiv.innerHTML = `
+                                <div class="result success">
+                                    ✅ <strong>Tuyệt vời!</strong> Đã tìm thấy bản ghi Google verification!<br>
+                                    Bây giờ bạn có thể quay lại Google Search Console và nhấn <strong>"Verify"</strong>
+                                </div>
+                            `;
+                        } else {
+                            resultDiv.innerHTML = `
+                                <div class="result error">
+                                    ❌ <strong>Chưa tìm thấy bản ghi Google verification</strong><br>
+                                    Các TXT record hiện tại:<br>
+                                    ${records.map(r => `• ${r}`).join('<br>')}
+                                    <br><br>
+                                    Vui lòng kiểm tra lại cấu hình DNS.
+                                </div>
+                            `;
+                        }
+                    } else {
+                        resultDiv.innerHTML = '<div class="result error">❌ Không tìm thấy TXT record nào cho tên miền này</div>';
+                    }
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            ❌ <strong>Lỗi kiểm tra:</strong> ${error.message}<br>
+                            Bạn có thể thử lại sau vài phút hoặc sử dụng công cụ khác như:<br>
+                            • <a href="https://toolbox.googleapps.com/apps/dig/#TXT/" target="_blank">Google Dig Tool</a><br>
+                            • <a href="https://mxtoolbox.com/txtlookup.aspx" target="_blank">MX Toolbox</a>
+                        </div>
+                    `;
+                });
+        }
+
+        // Auto check on page load
+        window.onload = function() {
+            setTimeout(checkDNS, 1000);
+        };
+    </script>
+</body>
+</html>
