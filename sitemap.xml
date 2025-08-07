@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<!-- 
+    MuaBanBatDongSan.io.vn - Sitemap 
+    Ngoc Duc BĐS - Mua Bán Bất Động Sản Hà Nội
+    Hotline: 0961678863 | Email: info.muabanbatdongsan@gmail.com
+    Keywords: muabanbatdongsan, muabanbatdongsan.io, muabanbatdongsan.io.vn
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
     <url>
         <loc>https://muabanbatdongsan.io.vn/</loc>
-        <lastmod>2025-08-06</lastmod>
+        <lastmod>2025-08-07</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>

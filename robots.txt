@@ -1,19 +1,33 @@
+# MuaBanBatDongSan.io.vn - Robots.txt
+# Ngoc Duc BĐS - Mua Bán Bất Động Sản Hà Nội
+# Hotline: 0961678863 | Email: info.muabanbatdongsan@gmail.com
+# Keywords: muabanbatdongsan, muabanbatdongsan.io, muabanbatdongsan.io.vn, Ngoc Duc BĐS
+
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemap location
 Sitemap: https://muabanbatdongsan.io.vn/sitemap.xml
 
-# Disallow admin pages (if any)
-Disallow: /admin/
-Disallow: /private/
-
-# Allow important pages
+# Allow search engines to index important content
 Allow: /article*.html
 Allow: /index.html
 Allow: /styles.css
 Allow: /script.js
 Allow: /img/
+Allow: /seo-data.json
 
-# Crawl-delay
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+
+# Crawl settings
 Crawl-delay: 1
+
+# Additional information for search engines
+# Company: Ngoc Duc BĐS
+# Phone: 0961678863 (0961.678.863)
+# Email: info.muabanbatdongsan@gmail.com
+# Website: muabanbatdongsan.io.vn
+# Services: Mua bán bất động sản Hà Nội, Tư vấn phong thủy
